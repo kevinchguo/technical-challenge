@@ -50,12 +50,19 @@ const Login: FC<LoginProps> = ({ logInUserSuccess, isLoggedIn }) => {
         }
     }, [isLoggedIn, navigate]);
 
+    useEffect(() => {
+        console.log('error useeffect ran');
+        if (error === null) {
+            return;
+        }
+        if (username || password) {
+            setError(null);
+        }
+    }, [username, password, error]);
+
     const handleLoginCredentials = (
         e: React.ChangeEvent<HTMLInputElement>
     ): void => {
-        if (!username || !password) {
-            setError(null);
-        }
         setLoginCredentials({
             ...loginCredentials,
             [e.target.name]: e.target.value,
